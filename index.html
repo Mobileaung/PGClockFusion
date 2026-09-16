@@ -1,3 +1,4 @@
+<!-- Phyo Subscription Panel - Myanmar language enabled. Original panel logic preserved. -->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl" data-theme="dark">
 <head>
@@ -110,6 +111,7 @@
     html { -webkit-text-size-adjust: 100%; }
 
     body {
+      font-family: "Noto Sans Myanmar", "Pyidaungsu", Arial, sans-serif;
       margin: 0;
       min-height: 100dvh;
       font-family: Vazirmatn, "Segoe UI", Tahoma, sans-serif;
@@ -1100,6 +1102,34 @@
       other: "Other"
     }
   };
+
+  /* ---------- Myanmar language extension ---------- */
+  (function(){
+    var mm = {
+      account:"အကောင့်", configs:"ဆာဗာများ", apps:"အက်ပ်များ", configTag:"config", appTag:"app",
+      emptyState:"Subscription link ထည့်ပါ", nowLabel:"လက်ရှိအချိန်", expireDate:"သက်တမ်းကုန်ဆုံးရက်",
+      daysLeftTitle:"ကျန်ရှိရက်", dataLeftTitle:"ကျန်ရှိဒေတာ", untilEnd:"Subscription ပြီးဆုံးသည်အထိ",
+      remainWord:"ကျန်ရှိ", ofWord:"၏", leftWord:"ကျန်", detailsTitle:"အကောင့်အချက်အလက်",
+      usage:"အသုံးပြုမှုဇယား", day:"နေ့", week:"အပတ်", noUsage:"အသုံးပြုမှုဒေတာမရှိပါ",
+      configsTitle:"ဆာဗာစာရင်း", configsNote:"အသုံးပြုသူ Subscription link နှင့် config များ",
+      copyAll:"အားလုံးကူးယူရန်", appsTitle:"App များဒေါင်းလုဒ်", appsNote:"Operating System အလိုက် App စာရင်း",
+      close:"ပိတ်ရန်", loading:"အကောင့်အချက်အလက် ရယူနေသည်", loadingUsage:"ဇယားတင်နေသည်",
+      active:"အသုံးပြုနေသည်", disabled:"ပိတ်ထားသည်", limited:"ကန့်သတ်ထားသည်", expired:"သက်တမ်းကုန်ဆုံးပြီ",
+      on_hold:"ခေတ္တရပ်ထားသည်", unknown:"မသိရှိပါ", expire:"ကျန်ရှိချိန်", used:"အသုံးပြုပြီး",
+      remain:"ကျန်ရှိဒေတာ", limit:"ကန့်သတ်ချက်", online:"နောက်ဆုံး Online", lifetime:"သက်တမ်းမကုန်",
+      created:"ဖန်တီးသည့်အချိန်", updated:"ပြင်ဆင်သည့်အချိန်", ip:"နောက်ဆုံး IP", devices:"စက်များ",
+      deviceTag:"စက်", deviceCapacity:"စက်အရေအတွက်ကန့်သတ်ချက်", unlimited:"အကန့်အသတ်မရှိ", never:"ဘယ်တော့မှမဟုတ်",
+      days:"ရက်", bytes:"B", kb:"KB", mb:"MB", gb:"GB", tb:"TB", usageTotal:"ရွေးချယ်ထားသောကာလအတွင်း Traffic",
+      lowTraffic:"ကျန်ရှိ Traffic နည်းနေပါသည်", lowTime:"Subscription မကြာမီသက်တမ်းကုန်မည်",
+      noConfig:"Config မရှိပါ", subLink:"Subscription link", copySubLink:"Subscription link ကူးယူရန်",
+      qrSubLink:"Subscription QR", copy:"ကူးယူရန်", copied:"ကူးယူပြီး", support:"အကူအညီ", qr:"QR",
+      download:"ဒေါင်းလုဒ်", noApps:"App မရှိပါ", app:"App", openApps:"ကြည့်ရန်", recommended:"အကြံပြုထားသည်",
+      yourOS:"သင့်စက် OS", import:"Subscription ထည့်ရန်", linkLabel:"Link", invalid:"Link သို့မဟုတ် token မမှန်ပါ",
+      infoError:"အကောင့်အချက်အလက် ရယူ၍မရပါ", fileHint:"ဖိုင်ကို Panel domain သို့မဟုတ် CORS ခွင့်ပြုထားသော domain တွင်ထားပါ",
+      qrLoading:"QR ဖန်တီးနေသည်", qrError:"QR ဖန်တီး၍မရပါ", qrLong:"Link ရှည်လွန်းသောကြောင့် QR မဖန်တီးနိုင်ပါ", other:"အခြား"
+    };
+    try { if (typeof I18N === "object") I18N.mm = mm; } catch(e) {}
+  })();
 
   var SVG = {
     user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 1 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>',
