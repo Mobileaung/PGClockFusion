@@ -1,40 +1,1253 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang="my" dir="ltr" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="color-scheme" content="dark light">
-  <title>پنل کاربری</title>
-  <style>
-    @font-face {
-      font-family: Vazirmatn;
-      src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn%5Bwght%5D.woff2") format("woff2-variations");
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VPN အသုံးပြုသူ ပင်မစာမျက်နှာ</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700;800&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#06080f;
+    --card:rgba(14,18,32,.82);
+    --card2:rgba(18,23,40,.72);
+    --text:#f4f7ff;
+    --muted:#9da8bd;
+    --line:rgba(255,255,255,.09);
+
+    --primary:#7c9cff;
+    --primary2:#5e7fff;
+
+    --green:#55e39b;
+    --yellow:#f4c96b;
+    --red:#ff7777;
+    --cyan:#38d5f5;
+    --purple:#bd8cff;
+
+    --radius:22px;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:"Noto Sans Myanmar","Pyidaungsu",sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+        radial-gradient(700px 400px at 85% -10%,rgba(95,125,255,.20),transparent 65%),
+        radial-gradient(600px 400px at -10% 35%,rgba(56,213,245,.10),transparent 65%),
+        radial-gradient(700px 450px at 50% 110%,rgba(140,90,255,.12),transparent 65%);
+}
+
+.container{
+    width:min(1150px,100%);
+    margin:auto;
+    padding:18px 16px 110px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+
+    padding:14px 16px;
+    margin-bottom:15px;
+
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+
+    background:var(--card);
+    backdrop-filter:blur(18px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:15px;
+
+    font-size:23px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(124,156,255,.25),
+        rgba(189,140,255,.18)
+    );
+
+    border:1px solid rgba(124,156,255,.25);
+}
+
+.brand h1{
+    font-size:16px;
+    font-weight:800;
+}
+
+.brand p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:2px;
+}
+
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+
+    border:1px solid var(--line);
+    border-radius:13px;
+
+    background:rgba(255,255,255,.04);
+    color:var(--text);
+
+    cursor:pointer;
+    font-size:17px;
+}
+
+.icon-btn:hover{
+    border-color:rgba(124,156,255,.45);
+}
+
+/* PROFILE */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+
+    padding:20px;
+    margin-bottom:15px;
+
+    backdrop-filter:blur(18px);
+    box-shadow:0 18px 45px rgba(0,0,0,.28);
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.avatar{
+    width:62px;
+    height:62px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--purple)
+    );
+
+    font-size:25px;
+    font-weight:800;
+
+    box-shadow:0 8px 28px rgba(92,125,255,.35);
+}
+
+.profile-info{
+    flex:1;
+}
+
+.profile-info h2{
+    font-size:20px;
+    font-weight:800;
+}
+
+.profile-info p{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+
+    padding:5px 11px;
+
+    margin-top:9px;
+
+    border-radius:50px;
+
+    font-size:11px;
+    color:var(--green);
+
+    background:rgba(85,227,155,.10);
+    border:1px solid rgba(85,227,155,.25);
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+    box-shadow:0 0 9px var(--green);
+}
+
+/* HERO */
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.hero{
+    padding:18px;
+
+    min-height:125px;
+
+    border-radius:18px;
+
+    background:var(--card2);
+    border:1px solid var(--line);
+}
+
+.hero-title{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:9px;
+}
+
+.hero-value{
+    font-size:25px;
+    font-weight:800;
+}
+
+.hero-value.blue{
+    color:var(--primary);
+}
+
+.hero-value.green{
+    color:var(--green);
+}
+
+.hero small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* RINGS */
+
+.ring-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.ring-card{
+    text-align:center;
+    padding:18px;
+
+    border-radius:18px;
+
+    background:var(--card2);
+    border:1px solid var(--line);
+}
+
+.ring-title{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.circle{
+    width:150px;
+    height:150px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:
+        radial-gradient(circle at center,
+        var(--bg) 57%,
+        transparent 58%
+        ),
+        conic-gradient(
+            var(--primary) 72%,
+            rgba(255,255,255,.07) 0
+        );
+}
+
+.circle.green{
+    background:
+        radial-gradient(circle at center,
+        var(--bg) 57%,
+        transparent 58%
+        ),
+        conic-gradient(
+            var(--green) 64%,
+            rgba(255,255,255,.07) 0
+        );
+}
+
+.circle-content strong{
+    display:block;
+    font-size:30px;
+}
+
+.circle-content span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* STATISTICS */
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:13px;
+}
+
+.section-title h2{
+    font-size:15px;
+}
+
+.section-title span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.stat{
+    padding:15px;
+
+    border-radius:17px;
+
+    background:var(--card2);
+    border:1px solid var(--line);
+}
+
+.stat-icon{
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+    background:rgba(124,156,255,.10);
+    color:var(--primary);
+}
+
+.stat:nth-child(2) .stat-icon{
+    color:var(--cyan);
+    background:rgba(56,213,245,.10);
+}
+
+.stat:nth-child(3) .stat-icon{
+    color:var(--green);
+    background:rgba(85,227,155,.10);
+}
+
+.stat:nth-child(4) .stat-icon{
+    color:var(--purple);
+    background:rgba(189,140,255,.10);
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.stat-value{
+    font-size:16px;
+    font-weight:800;
+    margin-top:4px;
+}
+
+/* SERVER */
+
+.server{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:13px;
+
+    margin-bottom:9px;
+
+    border-radius:16px;
+
+    background:var(--card2);
+    border:1px solid var(--line);
+}
+
+.server-icon{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:rgba(124,156,255,.10);
+
+    font-size:21px;
+}
+
+.server-info{
+    flex:1;
+}
+
+.server-info strong{
+    font-size:13px;
+}
+
+.server-info p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.online{
+    font-size:10px;
+    color:var(--green);
+
+    padding:5px 8px;
+
+    border-radius:50px;
+
+    background:rgba(85,227,155,.10);
+}
+
+/* CONFIG */
+
+.config-box{
+    padding:15px;
+
+    border-radius:17px;
+
+    background:var(--card2);
+    border:1px solid var(--line);
+}
+
+.config-text{
+    padding:12px;
+
+    border-radius:12px;
+
+    background:rgba(0,0,0,.25);
+
+    color:#aebcff;
+
+    font-size:11px;
+
+    word-break:break-all;
+
+    direction:ltr;
+    text-align:left;
+}
+
+.copy-btn{
+    width:100%;
+
+    margin-top:10px;
+
+    padding:11px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    color:#fff;
+
+    font-family:inherit;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+/* DOWNLOAD */
+
+.download-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.download{
+    padding:14px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    color:var(--text);
+
+    background:var(--card2);
+
+    border:1px solid var(--line);
+
+    transition:.2s;
+}
+
+.download:hover{
+    transform:translateY(-2px);
+    border-color:rgba(124,156,255,.4);
+}
+
+.download-icon{
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.download strong{
+    display:block;
+    font-size:13px;
+}
+
+.download span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* NAV */
+
+.bottom-nav{
+    position:fixed;
+
+    left:50%;
+    bottom:14px;
+
+    transform:translateX(-50%);
+
+    width:min(560px,calc(100% - 28px));
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    padding:7px;
+
+    border-radius:19px;
+
+    background:rgba(11,14,27,.94);
+
+    border:1px solid rgba(124,156,255,.20);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:0 15px 45px rgba(0,0,0,.45);
+
+    z-index:20;
+}
+
+.nav-btn{
+    border:0;
+
+    padding:9px 5px;
+
+    border-radius:13px;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    font-size:11px;
+}
+
+.nav-btn span{
+    display:block;
+    font-size:18px;
+    margin-bottom:2px;
+}
+
+.nav-btn.active{
+    color:#fff;
+
+    background:rgba(124,156,255,.14);
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    .container{
+        padding:12px 12px 105px;
     }
 
-    :root {
-      color-scheme: dark;
-      --ink: #f4f6fd;
-      --muted: rgba(244, 246, 253, 0.66);
-      --faint: rgba(244, 246, 253, 0.4);
-      --line: rgba(255, 255, 255, 0.16);
-      --line-soft: rgba(255, 255, 255, 0.09);
-      --bg: #06080f;
-      --glass: rgba(13, 16, 30, 0.78);
-      --glass-2: rgba(10, 13, 24, 0.66);
-      --chip-bg: rgba(9, 12, 22, 0.6);
-      --nav-bg: rgba(11, 14, 27, 0.92);
-      --nav-border: rgba(139, 168, 255, 0.2);
-      --accent: #8ba8ff;
-      --accent-2: #6f8dff;
-      --accent-soft: rgba(139, 168, 255, 0.12);
-      --accent-line: rgba(139, 168, 255, 0.28);
-      --good: #5fe0a0;
-      --good-soft: rgba(95, 224, 160, 0.12);
-      --good-line: rgba(95, 224, 160, 0.4);
-      --warn: #f4c86c;
+    .header{
+        padding:12px;
+    }
+
+    .hero-grid,
+    .ring-grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile-info h2{
+        font-size:18px;
+    }
+
+    .circle{
+        width:140px;
+        height:140px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                🛡️
+            </div>
+
+            <div>
+                <h1>VPN ဝန်ဆောင်မှု</h1>
+                <p>အသုံးပြုသူ ပင်မစာမျက်နှာ</p>
+            </div>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button class="icon-btn" onclick="toggleTheme()">
+                🌙
+            </button>
+
+            <button class="icon-btn">
+                🔔
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- PROFILE -->
+
+    <section class="card">
+
+        <div class="profile">
+
+            <div class="avatar">
+                PK
+            </div>
+
+            <div class="profile-info">
+
+                <h2>Phyo Ko</h2>
+
+                <p>အသုံးပြုသူ ID : PK2026</p>
+
+                <div class="status">
+                    <span class="status-dot"></span>
+                    လက်ရှိ အသုံးပြုနေသည်
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT INFO -->
+
+    <section class="card">
+
+        <div class="hero-grid">
+
+            <div class="hero">
+
+                <div class="hero-title">
+                    ⏰ လက်ရှိအချိန်
+                </div>
+
+                <div class="hero-value blue" id="clock">
+                    00:00:00
+                </div>
+
+                <small id="date">
+                    --
+                </small>
+
+            </div>
+
+
+            <div class="hero">
+
+                <div class="hero-title">
+                    📅 သက်တမ်းကုန်ဆုံးမည့်ရက်
+                </div>
+
+                <div class="hero-value green">
+                    30-09-2026
+                </div>
+
+                <small>
+                    ကျန်ရှိသောကာလ : 14 ရက်
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- USAGE -->
+
+    <section class="card">
+
+        <div class="ring-grid">
+
+            <div class="ring-card">
+
+                <div class="ring-title">
+                    📊 ဒေတာအသုံးပြုမှု
+                </div>
+
+                <div class="circle">
+
+                    <div class="circle-content">
+
+                        <strong>72%</strong>
+
+                        <span>အသုံးပြုပြီး</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ring-card">
+
+                <div class="ring-title">
+                    ⏳ သက်တမ်း
+                </div>
+
+                <div class="circle green">
+
+                    <div class="circle-content">
+
+                        <strong>64%</strong>
+
+                        <span>ကျန်ရှိ</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <h2>📈 အသုံးပြုမှု အချက်အလက်</h2>
+
+            <span>ယနေ့</span>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📥
+                </div>
+
+                <div class="stat-label">
+                    Download
+                </div>
+
+                <div class="stat-value">
+                    12.8 GB
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📤
+                </div>
+
+                <div class="stat-label">
+                    Upload
+                </div>
+
+                <div class="stat-value">
+                    4.6 GB
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🌐
+                </div>
+
+                <div class="stat-label">
+                    စုစုပေါင်း ဒေတာ
+                </div>
+
+                <div class="stat-value">
+                    17.4 GB
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⚡
+                </div>
+
+                <div class="stat-label">
+                    Connection
+                </div>
+
+                <div class="stat-value">
+                    Stable
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SERVER -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <h2>🌐 Server များ</h2>
+
+            <span>3 ခု</span>
+
+        </div>
+
+
+        <div class="server">
+
+            <div class="server-icon">
+                🇲🇲
+            </div>
+
+            <div class="server-info">
+
+                <strong>Myanmar Server</strong>
+
+                <p>မြန်မာနိုင်ငံ Node</p>
+
+            </div>
+
+            <div class="online">
+                Online
+            </div>
+
+        </div>
+
+
+        <div class="server">
+
+            <div class="server-icon">
+                🇸🇬
+            </div>
+
+            <div class="server-info">
+
+                <strong>Singapore Server</strong>
+
+                <p>Singapore Node</p>
+
+            </div>
+
+            <div class="online">
+                Online
+            </div>
+
+        </div>
+
+
+        <div class="server">
+
+            <div class="server-icon">
+                🇯🇵
+            </div>
+
+            <div class="server-info">
+
+                <strong>Japan Server</strong>
+
+                <p>Japan Node</p>
+
+            </div>
+
+            <div class="online">
+                Online
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONFIGURATION -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <h2>🔐 VPN ချိတ်ဆက်မှု</h2>
+
+            <span>VLESS</span>
+
+        </div>
+
+
+        <div class="config-box">
+
+            <div class="config-text" id="config">
+vless://your-user-id@server.example.com:443?security=reality&type=tcp#Myanmar-VPN
+            </div>
+
+            <button class="copy-btn" onclick="copyConfig()">
+                📋 ချိတ်ဆက်မှုကို ကူးယူရန်
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- APPS -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <h2>📱 App များ ဒေါင်းလုဒ်လုပ်ရန်</h2>
+
+        </div>
+
+
+        <div class="download-grid">
+
+            <a class="download" href="#" target="_blank">
+
+                <div class="download-icon">
+                    🤖
+                </div>
+
+                <strong>Android APK</strong>
+
+                <span>Android အတွက်</span>
+
+            </a>
+
+
+            <a class="download" href="#" target="_blank">
+
+                <div class="download-icon">
+                    🍎
+                </div>
+
+                <strong>iOS</strong>
+
+                <span>iPhone / iPad အတွက်</span>
+
+            </a>
+
+
+            <a class="download" href="#" target="_blank">
+
+                <div class="download-icon">
+                    💻
+                </div>
+
+                <strong>Windows</strong>
+
+                <span>Windows ကွန်ပျူတာအတွက်</span>
+
+            </a>
+
+
+            <a class="download" href="#" target="_blank">
+
+                <div class="download-icon">
+                    💬
+                </div>
+
+                <strong>Telegram Support</strong>
+
+                <span>အကူအညီတောင်းရန်</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <button class="nav-btn active" onclick="showSection('home')">
+
+        <span>🏠</span>
+        ပင်မစာမျက်နှာ
+
+    </button>
+
+
+    <button class="nav-btn" onclick="showSection('config')">
+
+        <span>🔗</span>
+        ချိတ်ဆက်မှု
+
+    </button>
+
+
+    <button class="nav-btn" onclick="showSection('apps')">
+
+        <span>📱</span>
+        App များ
+
+    </button>
+
+</nav>
+
+
+<script>
+
+/* CLOCK */
+
+function updateClock(){
+
+    const now = new Date();
+
+    const time =
+        now.toLocaleTimeString(
+            'my-MM',
+            {
+                hour12:false,
+                hour:'2-digit',
+                minute:'2-digit',
+                second:'2-digit'
+            }
+        );
+
+    const date =
+        now.toLocaleDateString(
+            'my-MM',
+            {
+                year:'numeric',
+                month:'long',
+                day:'numeric'
+            }
+        );
+
+    document.getElementById("clock").textContent = time;
+
+    document.getElementById("date").textContent = date;
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+/* COPY CONFIG */
+
+function copyConfig(){
+
+    const text =
+        document.getElementById("config").textContent.trim();
+
+    navigator.clipboard.writeText(text);
+
+    const button =
+        document.querySelector(".copy-btn");
+
+    const oldText = button.textContent;
+
+    button.textContent =
+        "✅ ကူးယူပြီးပါပြီ";
+
+    setTimeout(()=>{
+        button.textContent = oldText;
+    },1500);
+}
+
+
+/* DARK / LIGHT */
+
+function toggleTheme(){
+
+    const root =
+        document.documentElement;
+
+    if(root.getAttribute("data-theme") === "dark"){
+
+        root.setAttribute("data-theme","light");
+
+        document.body.style.background =
+            "#eef3fb";
+
+        document.querySelector(".icon-btn").textContent =
+            "☀️";
+
+    }else{
+
+        root.setAttribute("data-theme","dark");
+
+        document.body.style.background =
+            "#06080f";
+
+        document.querySelector(".icon-btn").textContent =
+            "🌙";
+    }
+}
+
+
+/* NAVIGATION */
+
+function showSection(type){
+
+    const buttons =
+        document.querySelectorAll(".nav-btn");
+
+    buttons.forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    event.currentTarget.classList.add("active");
+
+    if(type === "config"){
+
+        document.querySelector(".config-box")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+    }
+
+    if(type === "apps"){
+
+        document.querySelector(".download-grid")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+    }
+
+    if(type === "home"){
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>      --warn: #f4c86c;
       --warn-soft: rgba(244, 200, 108, 0.12);
       --warn-line: rgba(244, 200, 108, 0.38);
       --bad: #ff8f86;
